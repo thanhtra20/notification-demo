@@ -32,4 +32,5 @@ public class Main {
         System.out.println(custMap.get(new Customer(1, "KSH")));
 
     }
+
 }
