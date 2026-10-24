@@ -43,13 +43,15 @@ public class Main {
                 new OrderWithStream(2, 11, 80.0, "COMPLETED"),
                 new OrderWithStream(3, 10, 200.0, "CANCELLED"),
                 new OrderWithStream(4, 12, 300.0, "COMPLETED"),
-                new OrderWithStream(5, 16, 305.0, "CANCELLED"),
-                new OrderWithStream(6, 14, 340.0, "CANCELLED"));
+                new OrderWithStream(5, 16, 305.0, "COMPLETED"),
+                new OrderWithStream(7, 20, 700.0, "COMPLETED"),
+                new OrderWithStream(6, 14, 340.0, "COMPLETED"));
 
-        List<Long> idList = orders.stream()
-                .filter(o -> "COMPLETED".equals(o.getStatus())).filter(o -> o.getAmount() > 100)
-                .map(OrderWithStream::getId)
-                .collect(Collectors.toList());
+        Map<Long, Double> totals = orders.stream()
+                .filter(o -> "COMPLETED".equals(o.getStatus()))
+                .collect(Collectors.groupingBy(
+                        OrderWithStream::getCustomerId,
+                        Collectors.summingDouble(OrderWithStream::getAmount)));
 
         // Lay danh sach don da huy, sap xep theo amount giam dan
         List<Long> b2List = orders.stream()
@@ -58,9 +60,18 @@ public class Main {
                 .map(OrderWithStream::getId)
                 .collect(Collectors.toList());
 
-        System.out.println(idList);
+        System.out.println(totals);
         System.out.println(b2List);
 
+        List<Map.Entry<Long, Double>> sorted = totals.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+
+        List<Map.Entry<Long, Double>> top3 = sorted.stream()
+        .limit(3)
+        .collect(Collectors.toList());
+
+        System.out.println(top3);
     }
 
 }
