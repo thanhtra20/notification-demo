@@ -21,13 +21,12 @@ public class NpVsEmpty {
         }
         try {
             for (String n : findNull(false)) {
-            } 
+            }
         } catch (NullPointerException e) {
             System.out.println("Return null + without checking: NPE");
         }
 
-       
-        for (String n : findEmpty(false)) { 
+        for (String n : findEmpty(false)) {
             System.out.println(n);
         }
         System.out.println("Empty list: no error " + findEmpty(false).size());

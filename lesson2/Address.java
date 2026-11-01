@@ -3,7 +3,11 @@ package lesson2;
 public class Address {
 
     //khoong dung optional
-    private final String city;
+    private String city;
+
+
+    public Address() {
+    }
 
     public Address(String city) {
         this.city = city;

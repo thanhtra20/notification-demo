@@ -2,16 +2,20 @@ package lesson2;
 
 public class Customer {
 
-    private final int id;
-    private final String name;
-    private final Address address;
+    private  int id;
+    private  String name;
+    private  Address address;
 
     public Customer(int id, String name,Address address) {
         this.id = id;
         this.name = name;
         this.address = address;
     }
-
+    
+    public Customer(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public int getId() {
         return id;
